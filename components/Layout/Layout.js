@@ -1,12 +1,13 @@
-import useThemeContext from '../../hooks/useThemeContext'
+import theme from '../../theme'
 
 const Layout = ({ children }) => {
   const {
+    fontSize,
     colors,
     spacing,
     mediaQueries,
     utils: { pageContentMaxWidth },
-  } = useThemeContext()
+  } = theme
   return (
     <div className='container'>
       <nav className='navbar'>
@@ -59,10 +60,12 @@ const Layout = ({ children }) => {
 
         html,
         body {
+          font-size: ${fontSize.s};
           padding: 0;
           margin: 0;
           font-family: Avenir, sans-serif;
           background: ${colors.background};
+          line-height: 1.6;
         }
 
         h1,
@@ -72,6 +75,25 @@ const Layout = ({ children }) => {
         h5,
         h6 {
           font-family: Silka, sans-serif;
+          line-height: 1.2;
+          margin-top: 0;
+        }
+
+        h1 {
+          font-size: ${fontSize.headings.h1};
+        }
+        h2 {
+          font-size: ${fontSize.headings.h2};
+        }
+
+        p {
+          line-height: inherit;
+        }
+
+        picture {
+          line-height: 0;
+          font-size: 0;
+          display: block;
         }
 
         * {
