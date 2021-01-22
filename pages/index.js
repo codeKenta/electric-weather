@@ -17,12 +17,10 @@ const HomePage = () => {
 
       <div className='page-content'>
         <WeatherChart />
-
         <div className='button-wrapper'>
           <Button type='primary' text='show me a trick' fullWidth={true} />
           <Button text='reset' fullWidth={true} />
         </div>
-
         <div className='text-wrapper'>
           <h1>Infrastructure supply chain seed lean startup technology</h1>
           <p>
@@ -35,10 +33,9 @@ const HomePage = () => {
           <p>
             Agile development backing business-to-consumer analytics burn rate
             leverage business-to-business market creative responsive web design
-            graphical user interface
+            graphical user interface.
           </p>
         </div>
-
         <PuffSection />
       </div>
       <style jsx>{`
@@ -53,6 +50,7 @@ const HomePage = () => {
           grid-template-columns: 1fr;
           grid-gap: ${spacing.xxs};
           margin: 0 auto;
+          max-width: 600px;
           width: 100%;
         }
 
@@ -66,11 +64,8 @@ const HomePage = () => {
             grid-row-gap: ${spacing.l};
           }
           .button-wrapper {
-            display: grid;
             grid-template-columns: 1fr 1fr;
             grid-gap: ${spacing.xxs};
-            width: 360px;
-            margin: 0 auto;
           }
         }
       `}</style>
