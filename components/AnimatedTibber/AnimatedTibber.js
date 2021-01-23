@@ -8,16 +8,16 @@ const AnimatedTibber = () => {
         <g
           id='Page-1'
           stroke='none'
-          stroke-width='1'
+          strokeWidth='1'
           fill='none'
-          fill-rule='evenodd'
-          stroke-linecap='round'
+          fillRule='evenodd'
+          strokeLinecap='round'
         >
           <g
             id='Group'
             transform='translate(1.000000, 1.000000)'
             stroke={colors.primary}
-            stroke-width='1.5'
+            strokeWidth='1.5'
           >
             <path
               className='draw-stroke'

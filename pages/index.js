@@ -4,9 +4,31 @@ import WeatherChart from '../components/WeatherChart'
 import Button from '../components/Button'
 import Fade from 'react-reveal/Fade'
 import PuffSection from '../components/PuffSection'
+import { useGlobalContext } from '../hooks/useGlobalContext'
 
 const HomePage = () => {
+  const {
+    globalState: { surpriseWord },
+    setSurpriseImageUrl,
+  } = useGlobalContext()
   const { spacing, mediaQueries } = theme
+
+  async function getSurprise() {
+    const response = await fetch(
+      `https://api.giphy.com/v1/gifs/search?api_key=${process.env.NEXT_PUBLIC_GIPHY_API_KEY}&q=${surpriseWord}&limit=30&?weirdness=10`
+    )
+    const { data } = await response.json()
+    if (data) {
+      const randomItem = data[Math.floor(Math.random() * data.length)]
+      const imageUrl = randomItem?.images?.downsized_large?.url ?? ''
+      setSurpriseImageUrl(imageUrl)
+    }
+  }
+
+  function disableSurpriseMode() {
+    setSurpriseImageUrl('')
+  }
+
   return (
     <>
       <Head>
@@ -19,8 +41,17 @@ const HomePage = () => {
           <WeatherChart />
 
           <div className='button-wrapper'>
-            <Button type='primary' text='show me a trick' fullWidth={true} />
-            <Button text='reset' fullWidth={true} />
+            <Button
+              clickHandler={getSurprise}
+              type='primary'
+              text='show me a trick'
+              fullWidth={true}
+            />
+            <Button
+              clickHandler={disableSurpriseMode}
+              text='reset'
+              fullWidth={true}
+            />
           </div>
           <div className='text-wrapper'>
             <h1>Infrastructure supply chain seed lean startup technology</h1>
