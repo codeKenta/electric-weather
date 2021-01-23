@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
     <div className='container'>
       <nav className='navbar'>
         <div className='content-max-width'>
-          <img src={'logo.svg'} />
+          <img src={'images/logo.svg'} />
         </div>
       </nav>
 

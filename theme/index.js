@@ -7,6 +7,7 @@ export default {
     primaryLight: '#73D5E3',
     background: '#E5E5E5',
     lightBackground: '#FFFCFC',
+    error: '#F33279',
   },
   utils: {
     pageContentMaxWidth: '1300px',
