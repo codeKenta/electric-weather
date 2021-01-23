@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client'
-import theme from '../../theme'
 import { getWeather } from '../../GraphQL/queries'
+import { useGlobalContext } from '../../hooks/useGlobalContext'
+import theme from '../../theme'
 import { useState, useEffect } from 'react'
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts'
 import AnimatedTibber from '../AnimatedTibber'
@@ -8,6 +9,12 @@ import AnimatedTibber from '../AnimatedTibber'
 const WeatherChart = () => {
   const { error, data } = useQuery(getWeather)
   const weather = data?.me?.home?.weather ?? null
+
+  const {
+    globalState: { surpriseImgUrl },
+    setSurpriseWord,
+  } = useGlobalContext() // * surprise
+
   const [entries, setEntries] = useState(null)
   const [avarage, setAvarage] = useState(null)
   const [isReady, setIsReady] = useState(false) // Is used instead of "loading" from "useQuery()""
@@ -18,14 +25,17 @@ const WeatherChart = () => {
       let { entries } = weather
 
       let sumOfTemperatures = 0
+      let weatherTypes = {} // * surprise
 
       const newEntries = entries.reduce(
         (acc, entry) => {
           let formatedTime = new Date(entry.time)
 
           formatedTime = formatedTime.getHours()
-
           sumOfTemperatures = sumOfTemperatures + entry.temperature
+
+          weatherTypes[entry.type] = weatherTypes[entry.type] + 1 || 1 // *surprise
+
           acc.push({ ...entry, formatedTime })
 
           return acc
@@ -33,8 +43,28 @@ const WeatherChart = () => {
         [weather]
       )
 
-      const avarage = Math.ceil(sumOfTemperatures / entries.length)
+      const avarage = Math.ceil(sumOfTemperatures / entries.length) // * surprise
 
+      let avarageWeatherType = {
+        type: '',
+        number: 0,
+      } // * surprise
+
+      // * surprise - Finally gets the most avarage type of weather from the day
+      for (const key in weatherTypes) {
+        if (Object.hasOwnProperty.call(weatherTypes, key)) {
+          const numberOfWeatherType = weatherTypes[key]
+
+          if (numberOfWeatherType > avarageWeatherType.number) {
+            avarageWeatherType = {
+              type: key,
+              number: numberOfWeatherType,
+            }
+          }
+        }
+      }
+
+      setSurpriseWord(avarageWeatherType.type) // * surprise
       setEntries(newEntries)
       setAvarage(avarage)
       setIsReady(true)
@@ -115,6 +145,8 @@ const WeatherChart = () => {
           display: flex;
           flex-direction: column;
           justify-content: center;
+          background-image: url('${surpriseImgUrl}');
+          background-size: cover;
         }
         .degree-label {
           font-size: ${fontSize.xs};
