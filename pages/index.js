@@ -1,9 +1,8 @@
 import Head from 'next/head'
-
 import theme from '../theme'
 import WeatherChart from '../components/WeatherChart'
 import Button from '../components/Button'
-
+import Fade from 'react-reveal/Fade'
 import PuffSection from '../components/PuffSection'
 
 const HomePage = () => {
@@ -16,26 +15,30 @@ const HomePage = () => {
       </Head>
 
       <div className='page-content'>
-        <WeatherChart />
-        <div className='button-wrapper'>
-          <Button type='primary' text='show me a trick' fullWidth={true} />
-          <Button text='reset' fullWidth={true} />
-        </div>
-        <div className='text-wrapper'>
-          <h1>Infrastructure supply chain seed lean startup technology</h1>
-          <p>
-            Assets traction angel investor user experience social media leverage
-            value proposition startup success founders creative. Equity value
-            proposition launch party business-to-consumer research & development
-            freemium bandwidth stock scrum project analytics.
-          </p>
+        <Fade cascade>
+          <WeatherChart />
 
-          <p>
-            Agile development backing business-to-consumer analytics burn rate
-            leverage business-to-business market creative responsive web design
-            graphical user interface.
-          </p>
-        </div>
+          <div className='button-wrapper'>
+            <Button type='primary' text='show me a trick' fullWidth={true} />
+            <Button text='reset' fullWidth={true} />
+          </div>
+          <div className='text-wrapper'>
+            <h1>Infrastructure supply chain seed lean startup technology</h1>
+            <p>
+              Assets traction angel investor user experience social media
+              leverage value proposition startup success founders creative.
+              Equity value proposition launch party business-to-consumer
+              research & development freemium bandwidth stock scrum project
+              analytics.
+            </p>
+
+            <p>
+              Agile development backing business-to-consumer analytics burn rate
+              leverage business-to-business market creative responsive web
+              design graphical user interface.
+            </p>
+          </div>
+        </Fade>
         <PuffSection />
       </div>
       <style jsx>{`

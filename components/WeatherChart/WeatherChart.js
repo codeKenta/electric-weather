@@ -3,7 +3,6 @@ import theme from '../../theme'
 import { getWeather } from '../../GraphQL/queries'
 import { useState, useEffect } from 'react'
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts'
-
 import AnimatedTibber from '../AnimatedTibber'
 
 const WeatherChart = () => {
@@ -113,6 +112,9 @@ const WeatherChart = () => {
           text-align: center;
           line-height: 1.4;
           min-height: 300px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
         .degree-label {
           font-size: ${fontSize.xs};
@@ -136,7 +138,6 @@ const WeatherChart = () => {
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 100%;
         }
         .animation-wrapper {
           width: 100px;
