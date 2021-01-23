@@ -4,14 +4,18 @@ import { getWeather } from '../../GraphQL/queries'
 import { useState, useEffect } from 'react'
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts'
 
+import AnimatedTibber from '../AnimatedTibber'
+
 const WeatherChart = () => {
-  const { loading, error, data } = useQuery(getWeather)
+  const { error, data } = useQuery(getWeather)
   const weather = data?.me?.home?.weather ?? null
   const [entries, setEntries] = useState(null)
   const [avarage, setAvarage] = useState(null)
+  const [isReady, setIsReady] = useState(false) // Is used instead of "loading" from "useQuery()""
 
   useEffect(() => {
     if (weather) {
+      setIsReady(false)
       let { entries } = weather
 
       let sumOfTemperatures = 0
@@ -34,6 +38,7 @@ const WeatherChart = () => {
 
       setEntries(newEntries)
       setAvarage(avarage)
+      setIsReady(true)
     }
   }, [weather])
 
@@ -43,7 +48,18 @@ const WeatherChart = () => {
   return (
     <>
       <div className='chart'>
-        {avarage && (
+        {!isReady && (
+          <div className='center-child'>
+            {!error && (
+              <div className='animation-wrapper'>
+                <AnimatedTibber />
+              </div>
+            )}
+            {error && <p className='error'>We could not get your data</p>}
+          </div>
+        )}
+
+        {isReady && avarage && (
           <div>
             <span className='degree-label'>Avarage temperature</span>
             <div className='degree-wrapper'>
@@ -56,11 +72,7 @@ const WeatherChart = () => {
           </div>
         )}
 
-        {loading && <p>loading</p>}
-
-        {error && <p>error</p>}
-
-        {entries && (
+        {isReady && entries && (
           <div className='chart-component-wrapper'>
             <ResponsiveContainer width='100%' height='100%'>
               <BarChart
@@ -100,6 +112,7 @@ const WeatherChart = () => {
           background: ${colors.black};
           text-align: center;
           line-height: 1.4;
+          min-height: 300px;
         }
         .degree-label {
           font-size: ${fontSize.xs};
@@ -117,6 +130,20 @@ const WeatherChart = () => {
           width: 99%; /* 100% makes the container behave very strange */
           margin: 0 auto;
           transition: height 500ms ease-in;
+        }
+
+        .center-child {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+        }
+        .animation-wrapper {
+          width: 100px;
+        }
+
+        .error {
+          color: ${colors.error};
         }
 
         @media screen and (min-width: 500px) {
