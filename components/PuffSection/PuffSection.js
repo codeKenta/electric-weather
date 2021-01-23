@@ -1,3 +1,4 @@
+import Fade from 'react-reveal/Fade'
 import theme from '../../theme'
 
 const PuffSection = () => {
@@ -6,29 +7,31 @@ const PuffSection = () => {
   return (
     <>
       <section className='puff-section'>
-        <article className='puff'>
-          <picture>
-            <img src='images/tibber-branding-yard.jpg' />
+        <Fade cascade>
+          <article className='puff'>
+            <picture>
+              <img src='images/tibber-branding-yard.jpg' />
+            </picture>
+            <div className='puff__body'>
+              <h2>Direct mailing strategy buzz social proof</h2>
+            </div>
+          </article>
+
+          <article className='puff'>
+            <picture>
+              <img src='images/tibber-branding-tesla-cat.png' />
+            </picture>
+
+            <div className='puff__body'>
+              <h2>Hypotheses value proposition</h2>
+            </div>
+          </article>
+
+          <picture className='big-picture'>
+            {/* If we had the image in different solutions i would insert diffetent sources here */}
+            <img src='images/tibber-shot-12.jpg' />
           </picture>
-          <div className='puff__body'>
-            <h2>Direct mailing strategy buzz social proof</h2>
-          </div>
-        </article>
-
-        <article className='puff'>
-          <picture>
-            <img src='images/tibber-branding-tesla-cat.png' />
-          </picture>
-
-          <div className='puff__body'>
-            <h2>Hypotheses value proposition</h2>
-          </div>
-        </article>
-
-        <picture className='big-picture'>
-          {/* If we had the image in different solutions i would insert diffetent sources here */}
-          <img src='images/tibber-shot-12.jpg' />
-        </picture>
+        </Fade>
       </section>
       <style jsx>{`
         .puff-section {
