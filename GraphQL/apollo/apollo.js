@@ -1,9 +1,3 @@
-/*
-the most of the config is copied from 
-https://github.com/borisowsky/next-advanced-apollo-starter
-
-*/
-
 import { useMemo } from 'react'
 import merge from 'deepmerge'
 
