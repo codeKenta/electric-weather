@@ -43,7 +43,7 @@ const WeatherChart = () => {
         [weather]
       )
 
-      const avarage = Math.ceil(sumOfTemperatures / entries.length) // * surprise
+      let avarage = Math.ceil(sumOfTemperatures / newEntries.length)
 
       let avarageWeatherType = {
         type: '',
@@ -66,7 +66,7 @@ const WeatherChart = () => {
 
       setSurpriseWord(avarageWeatherType.type) // * surprise
       setEntries(newEntries)
-      setAvarage(avarage)
+      setAvarage(avarage.toString())
       setIsReady(true)
     }
   }, [weather])
