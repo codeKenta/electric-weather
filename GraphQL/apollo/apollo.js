@@ -7,34 +7,15 @@ import { setContext } from '@apollo/client/link/context'
 export const APOLLO_STATE_PROPERTY_NAME = '__APOLLO_STATE__'
 export const COOKIES_TOKEN_NAME = 'jwt'
 
-const getToken = async () => {
-  const rawResponse = await fetch(process.env.NEXT_PUBLIC_GRAPHQL_LOGIN_URL, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: process.env.NEXT_PUBLIC_GRAPHQL_USER,
-      password: process.env.NEXT_PUBLIC_GRAPHQL_PASSWORD,
-    }),
-  })
-  const { token } = await rawResponse.json()
-
-  return token ?? ''
-}
-
 let apolloClient = null
 
-const createApolloClient = (ctx) => {
+const createApolloClient = (ctx, token = '') => {
   const httpLink = new HttpLink({
     uri: process.env.NEXT_PUBLIC_GRAPHQL_URI,
     credentials: 'same-origin',
   })
 
   const authLink = setContext(async (_, { headers }) => {
-    const token = await getToken()
-
     return {
       headers: {
         ...headers,
@@ -51,7 +32,7 @@ const createApolloClient = (ctx) => {
 }
 
 export function initializeApollo(initialState = null, ctx = null) {
-  const client = apolloClient ?? createApolloClient(ctx)
+  const client = apolloClient ?? createApolloClient(ctx, initialState.token)
 
   if (initialState) {
     const existingCache = client.extract()
@@ -84,7 +65,12 @@ export function addApolloState(client, pageProps) {
 
 export function useApollo(pageProps) {
   const state = pageProps[APOLLO_STATE_PROPERTY_NAME]
-  const store = useMemo(() => initializeApollo(state), [state])
+
+  const stateWithToken = { ...state, token: pageProps.token }
+
+  const store = useMemo(() => initializeApollo(stateWithToken), [
+    stateWithToken,
+  ])
 
   return store
 }

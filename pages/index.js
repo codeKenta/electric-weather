@@ -5,6 +5,7 @@ import Button from '../components/Button'
 import Fade from 'react-reveal/Fade'
 import PuffSection from '../components/PuffSection'
 import { useGlobalContext } from '../hooks/useGlobalContext'
+import { getToken } from '../GraphQL/utils'
 
 const HomePage = () => {
   const {
@@ -108,3 +109,8 @@ const HomePage = () => {
 }
 
 export default HomePage
+
+HomePage.getInitialProps = async (ctx) => {
+  const token = await getToken()
+  return { token }
+}
