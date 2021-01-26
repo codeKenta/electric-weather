@@ -22,7 +22,7 @@ The data is displayed as graphs with the library Rechart.
 
 Custom made animated Tibber-symbol as loader.
 
-Update 2020:26: The initial token request is moved to server-side so credential is not exposed in the browser network tag.
+Update 2020:26: The initial token request is moved to server-side so credential is not exposed in the browser network tab.
 
 ### The Surprise
 
