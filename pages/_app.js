@@ -1,3 +1,5 @@
+import NextApp from 'next/app'
+
 import { ApolloProvider } from '@apollo/client'
 import { useApollo } from '../GraphQL/apollo'
 import { GlobalProvider } from '../context/globalContext'
@@ -16,6 +18,11 @@ const App = ({ Component, pageProps }) => {
       </GlobalProvider>
     </ApolloProvider>
   )
+}
+
+App.getInitialProps = async (appContext) => {
+  const appProps = await NextApp.getInitialProps(appContext)
+  return { ...appProps }
 }
 
 export default App

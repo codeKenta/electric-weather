@@ -22,6 +22,8 @@ The data is displayed as graphs with the library Rechart.
 
 Custom made animated Tibber-symbol as loader.
 
+Update 2020:26: The initial token request is moved to server-side so credential is not exposed in the browser network tag.
+
 ### The Surprise
 
 The surprise function takes the most accouring wehater type of the shown day and sets a giphy in the background.
@@ -29,8 +31,6 @@ The surprise function takes the most accouring wehater type of the shown day and
 ### Room for improvements
 
 - The JWT-token that are used to athenticate against the server is set on the initial pre-fetch before the apollo client is construced. At the moment, the token is not refreshed but the app structure is prepared so it can refresh the token if nescessary.
-
-- I would prefer to only send the first login-request to get the token on the server. The request with its payload is shown in the network and I dont think this is a clever solution. I think the most simple way is just to make the request server-side and send over the token as a initial prop to the app.
 
 - Bar chart: I have worked with D3-wrappers for Angular before but not with Rechart. So I bet there is many improvements regarding the implementation. For e.g. better UX with clearified labels and tooltips.
 
